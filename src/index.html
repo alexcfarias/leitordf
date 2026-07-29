@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LeitorDF</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#14161a">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>LeitorDF</h1>
+  <span id="contador-wrap">Lidas: <strong id="contador">0</strong></span>
+</header>
+
+<main>
+  <div class="camera-wrap">
+    <video id="video" autoplay playsinline muted></video>
+  </div>
+
+  <p id="status" class="status">Toque em "Iniciar câmera" para começar.</p>
+
+  <div class="botoes">
+    <button id="btn-iniciar" class="btn btn-primario">▶ Iniciar câmera</button>
+    <button id="btn-parar" class="btn" disabled>■ Parar</button>
+    <button id="btn-torch" class="btn" disabled>💡 Lanterna</button>
+  </div>
+
+  <details class="entrada-manual">
+    <summary>Digitar chave manualmente</summary>
+    <form id="form-manual">
+      <input id="input-manual" type="text" inputmode="numeric" maxlength="60"
+             placeholder="44 dígitos ou cole a URL do QR Code" autocomplete="off">
+      <button type="submit" class="btn">Adicionar</button>
+    </form>
+  </details>
+
+  <section class="lista-wrap">
+    <h2>Documentos lidos</h2>
+    <ul id="lista-leituras"></ul>
+  </section>
+
+  <div class="botoes botoes-rodape">
+    <button id="btn-exportar" class="btn btn-primario">⬇ Exportar .txt</button>
+    <button id="btn-limpar" class="btn btn-perigo">🗑 Limpar tudo</button>
+  </div>
+</main>
+
+<script src="chave.js"></script>
+<script src="scanner.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

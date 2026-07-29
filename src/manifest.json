@@ -1,0 +1,14 @@
+{
+  "name": "LeitorDF",
+  "short_name": "LeitorDF",
+  "description": "Leitor de chaves de acesso de documentos fiscais para importação no Despesas2",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#14161a",
+  "theme_color": "#14161a",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
