@@ -157,7 +157,8 @@ Ao terminar  →  "Exportar .txt"  →  leitordf-AAAAMMDD-HHMM.txt
 |---|---|
 | Decodificação | `BarcodeDetector` nativo (Chrome/Android) — sem biblioteca externa |
 | Formatos | `qr_code`, `code_128` |
-| Câmera | `facingMode: 'environment'`, foco contínuo, torch quando disponível |
+| Câmera | `facingMode: 'environment'` |
+| Lanterna | **Removida em 2026-07-30.** Testada com contorno de `deviceId` para expor `torch` em mais aparelhos — mesmo assim não funcionou no celular real de teste. Vários Android/Chrome simplesmente não expõem controle de lanterna via `getUserMedia`/`applyConstraints`, sem contorno possível pela web. Ligar a lanterna do sistema (fora do app) quando precisar de mais luz é o caminho — ver seção 8 |
 | Persistência | IndexedDB (a lista sobrevive a fechar o app / recarregar) |
 | Validação | `chave.js` espelha `dv_chave_valido()` do Despesas2 |
 | Offline | Service Worker com cache dos assets (`cache-first`) |
@@ -261,7 +262,7 @@ aceito pelo navegador sem HTTPS.
 
 | Risco | Mitigação |
 |---|---|
-| Code 128 do DANFE lê mal sob luz baixa | Botão de lanterna; entrada manual como saída de emergência (RF8) |
+| Code 128 do DANFE lê mal sob luz baixa | Ligar a lanterna do sistema (fora do app — não há controle confiável pela web, ver decisão em "Câmera/Lanterna"); entrada manual como saída de emergência (RF8) |
 | Chave lida corretamente mas SEFAZ fora do ar | Problema do lado Despesas2: a fila permite reprocessar |
 | Perda das leituras antes de exportar | IndexedDB persiste; a lista só é limpa por ação explícita |
 | Trocar de celular para um iPhone | `BarcodeDetector` não existe no Safari — exigiria adicionar o fallback ZXing-wasm |
