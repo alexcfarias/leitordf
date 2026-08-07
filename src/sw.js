@@ -2,7 +2,7 @@
  * sw.js — Service Worker para uso offline (cache-first dos assets estáticos).
  * Ver PLANEJAMENTO.md fase 5.
  */
-const CACHE = 'leitordf-v1';
+const CACHE = 'leitordf-v2';
 const ASSETS = [
   './',
   './index.html',
