@@ -219,7 +219,9 @@ function exportarArquivo(leituras) {
       await scanner.iniciar();
       els.btnIniciar.disabled = true;
       els.btnParar.disabled = false;
-      els.btnTorch.disabled = false;
+      const temTorch = scanner.suportaTorch();
+      els.btnTorch.disabled = !temTorch;
+      els.btnTorch.title = temTorch ? '' : 'Este aparelho não expõe controle de lanterna pelo navegador.';
       setStatus('Câmera ativa — aponte para o código.', '');
     } catch (e) {
       setStatus('Não foi possível acessar a câmera: ' + e.message, 'erro');
@@ -231,15 +233,22 @@ function exportarArquivo(leituras) {
     els.btnIniciar.disabled = false;
     els.btnParar.disabled = true;
     els.btnTorch.disabled = true;
+    els.btnTorch.textContent = '💡 Lanterna';
+    torchLigado = false;
     setStatus('Câmera parada.', '');
   }
 
   els.btnIniciar.addEventListener('click', iniciar);
   els.btnParar.addEventListener('click', parar);
   els.btnTorch.addEventListener('click', async () => {
-    torchLigado = !torchLigado;
-    const ok = await scanner?.ligarTorch(torchLigado);
-    if (!ok) torchLigado = false;
+    const querLigar = !torchLigado;
+    const ok = await scanner?.ligarTorch(querLigar);
+    if (ok) {
+      torchLigado = querLigar;
+      els.btnTorch.textContent = torchLigado ? '💡 Lanterna (ligada)' : '💡 Lanterna';
+    } else {
+      setStatus('Não foi possível controlar a lanterna neste aparelho.', 'aviso');
+    }
   });
   els.btnExportar.addEventListener('click', async () => {
     const leituras = await listarLeituras(db);
